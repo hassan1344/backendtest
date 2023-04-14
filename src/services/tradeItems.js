@@ -11,8 +11,6 @@ export const trade_items = async (req, res) => {
     const senderPoints = calculateTotalPoints(senderItems);
     const receiverPoints = calculateTotalPoints(receiverItems);
 
-    console.log(senderPoints);
-    console.log(receiverPoints);
     if (senderPoints === receiverPoints) {
       updateInventory(find_survivors[0], senderItems, false);
       updateInventory(find_survivors[1], receiverItems, true);
