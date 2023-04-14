@@ -4,7 +4,7 @@ export const add_survivor = async (req, res) => {
   try {
     const { name, age, gender, lastLocation, inventory } = req.body;
 
-    if (!name || !age || !gender || lastLocation || inventory) {
+    if (!name || !age || !gender || !lastLocation || !inventory) {
       return res.status(400).json({ message: "Invalid request parameters" });
     }
     const survivor = new survivorSchema({
