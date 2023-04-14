@@ -1,0 +1,29 @@
+{
+  "name": "backendtest",
+  "version": "1.0.0",
+  "description": "Be sure to read **all** of this document carefully, and follow the guidelines within.",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/hassan1344/backendtest.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/hassan1344/backendtest/issues"
+  },
+  "homepage": "https://github.com/hassan1344/backendtest#readme",
+  "dependencies": {
+    "body-parser": "^1.20.2",
+    "dotenv": "^16.0.3",
+    "express": "^4.18.2",
+    "find-config": "^1.0.0",
+    "mongoose": "^7.0.3",
+    "nodemon": "^2.0.22"
+  }
+}
