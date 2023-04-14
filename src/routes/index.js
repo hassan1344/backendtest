@@ -5,6 +5,7 @@ import { infect_survivor } from "../services/infectSurvivor.js";
 import { get_infected_noninfected_percentage } from "../services/getPercentage.js";
 import { get_average_items } from "../services/getAverageItems.js";
 import { trade_items } from "../services/tradeItems.js";
+import { get_points_lost } from "../services/getPointsLost.js";
 
 const router = express.Router();
 
@@ -14,4 +15,5 @@ router.put("/survivor/infect-survivor/:id", infect_survivor);
 router.get("/survivor/get-percentage", get_infected_noninfected_percentage);
 router.get("/survivor/get-average-items", get_average_items);
 router.post("/survivor/trade-items", trade_items);
+router.get("/survivor/get-points-lost/:id", get_points_lost);
 export default router;
