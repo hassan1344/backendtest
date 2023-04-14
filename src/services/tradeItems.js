@@ -1,34 +1,39 @@
 import { survivorSchema } from "../models/survivorSchema.js";
 
 export const trade_items = async (req, res) => {
-  const { senderId, receiverId, senderItems, receiverItems } = req.body;
+  try {
+    const { senderId, receiverId, senderItems, receiverItems } = req.body;
 
-  const find_survivors = await survivorSchema.find({
-    _id: { $in: [senderId, receiverId] },
-  });
+    const find_survivors = await survivorSchema.find({
+      _id: { $in: [senderId, receiverId] },
+    });
 
-  if (!find_survivors[0].infected && !find_survivors[1].infected) {
-    const senderPoints = calculateTotalPoints(senderItems);
-    const receiverPoints = calculateTotalPoints(receiverItems);
+    if (!find_survivors[0].infected && !find_survivors[1].infected) {
+      const senderPoints = calculateTotalPoints(senderItems);
+      const receiverPoints = calculateTotalPoints(receiverItems);
 
-    if (senderPoints === receiverPoints) {
-      updateInventory(find_survivors[0], senderItems, false);
-      updateInventory(find_survivors[1], receiverItems, true);
+      if (senderPoints === receiverPoints) {
+        updateInventory(find_survivors[0], senderItems, false);
+        updateInventory(find_survivors[1], receiverItems, true);
 
-      Promise.all([find_survivors[0].save(), find_survivors[1].save()])
-        .then(() => {
-          res.json({ message: "Items traded successfully" });
-        })
-        .catch((err) => {
-          res.status(500).json({ error: "Failed to trade items" });
+        Promise.all([find_survivors[0].save(), find_survivors[1].save()])
+          .then(() => {
+            res.json({ message: "Items traded successfully" });
+          })
+          .catch((err) => {
+            res.status(500).json({ message: "Failed to trade items" });
+          });
+      } else {
+        res.status(400).json({
+          message: "Sender and receiver must offer the same amount of points",
         });
+      }
     } else {
-      res.status(400).json({
-        error: "Sender and receiver must offer the same amount of points",
-      });
+      res.status(400).json({ message: "Infected survivors cannot trade" });
     }
-  } else {
-    res.status(400).json({ error: "Infected survivors cannot trade" });
+  } catch (err) {
+    console.log(err.message);
+    res.status(500).json({ message: "Something went wrong" });
   }
 };
 
