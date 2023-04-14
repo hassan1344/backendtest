@@ -32,10 +32,12 @@ export const get_average_items = async (req, res) => {
     }
 
     const average = {
-      water: survivorCount > 0 ? sum.water / survivorCount : 0,
-      food: survivorCount > 0 ? sum.food / survivorCount : 0,
-      medication: survivorCount > 0 ? sum.medication / survivorCount : 0,
-      ammunition: survivorCount > 0 ? sum.ammunition / survivorCount : 0,
+      water: survivorCount > 0 ? Math.round(sum.water / survivorCount) : 0,
+      food: survivorCount > 0 ? Math.round(sum.food / survivorCount) : 0,
+      medication:
+        survivorCount > 0 ? Math.round(sum.medication / survivorCount) : 0,
+      ammunition:
+        survivorCount > 0 ? Math.round(sum.ammunition / survivorCount) : 0,
     };
 
     res.json({ average });
